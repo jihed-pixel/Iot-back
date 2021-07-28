@@ -12,6 +12,7 @@ public class ExamenCliModel {
     private Double pa_sys;
     private Double pa_dya;
     private Double scoreGlas;
+    private Double scoreGlas1;
     private Double poids;
     private Integer taille; //la taille est en cm
     private String examOro;
@@ -21,14 +22,13 @@ public class ExamenCliModel {
     private String examNeuro;
     private String examCardio;
     private String autre;
-    private Date dateDiag;
 
 
 
     public ExamenCliModel() {
     }
 
-    public ExamenCliModel(Double temperature, Double fr, Double fc, Double sao2, Double pa_sys, Double pa_dya, Double scoreGlas, Double poids, Integer taille, String examOro, String examPulmo, String examOphta, String examCut, String examNeuro, String examCardio, String autre, Date dateDiag) {
+    public ExamenCliModel(Double temperature, Double fr, Double fc, Double sao2, Double pa_sys, Double pa_dya, Double scoreGlas, Double scoreGlas1,Double poids, Integer taille, String examOro, String examPulmo, String examOphta, String examCut, String examNeuro, String examCardio, String autre) {
         this.temperature = temperature;
         this.fr = fr;
         this.fc = fc;
@@ -36,6 +36,7 @@ public class ExamenCliModel {
         this.pa_sys = pa_sys;
         this.pa_dya = pa_dya;
         this.scoreGlas = scoreGlas;
+        this.scoreGlas1 = scoreGlas1;
         this.poids = poids;
         this.taille = taille;
         this.examOro = examOro;
@@ -45,7 +46,6 @@ public class ExamenCliModel {
         this.examNeuro = examNeuro;
         this.examCardio = examCardio;
         this.autre = autre;
-        this.dateDiag = dateDiag;
     }
 
     public Double getTemperature() {
@@ -102,6 +102,14 @@ public class ExamenCliModel {
 
     public void setScoreGlas(Double scoreGlas) {
         this.scoreGlas = scoreGlas;
+    }
+
+    public Double getScoreGlas1() {
+        return scoreGlas1;
+    }
+
+    public void setScoreGlas1(Double scoreGlas1) {
+        this.scoreGlas1 = scoreGlas1;
     }
 
     public Double getPoids() {
@@ -176,11 +184,4 @@ public class ExamenCliModel {
         this.autre = autre;
     }
 
-    public Date getDateDiag() {
-        return dateDiag;
-    }
-
-    public void setDateDiag(Date dateDiag) {
-        this.dateDiag = dateDiag;
-    }
 }

@@ -11,6 +11,7 @@ public class ExamenCli {
     private Double pa_sys;//pression arterielle sysytolique
     private Double pa_dya;//pression arterielle dyastolique
     private Double scoreGlas;
+    private Double scoreGlas1;
     private Double poids;
     private Integer taille; //la taille est en cm
     private String examOro;
@@ -24,7 +25,7 @@ public class ExamenCli {
     public ExamenCli() {
     }
 
-    public ExamenCli(Double temperature, Double fr, Double fc, Double sao2, Double pa_sys, Double pa_dya, Double scoreGlas, Double poids, Integer taille, String examOro, String examPulmo, String examOphta, String examCut, String examNeuro, String examCardio, String autre) {
+    public ExamenCli(Double temperature, Double fr, Double fc, Double sao2, Double pa_sys, Double pa_dya, Double scoreGlas, Double scoreGlas1, Double poids, Integer taille, String examOro, String examPulmo, String examOphta, String examCut, String examNeuro, String examCardio, String autre) {
         this.temperature = temperature;
         this.fr = fr;
         this.fc = fc;
@@ -32,6 +33,7 @@ public class ExamenCli {
         this.pa_sys = pa_sys;
         this.pa_dya = pa_dya;
         this.scoreGlas = scoreGlas;
+        this.scoreGlas1 = scoreGlas1;
         this.poids = poids;
         this.taille = taille;
         this.examOro = examOro;
@@ -97,6 +99,14 @@ public class ExamenCli {
 
     public void setScoreGlas(Double scoreGlas) {
         this.scoreGlas = scoreGlas;
+    }
+
+    public Double getScoreGlas1() {
+        return scoreGlas1;
+    }
+
+    public void setScoreGlas1(Double scoreGlas1) {
+        this.scoreGlas1 = scoreGlas1;
     }
 
     public Double getPoids() {

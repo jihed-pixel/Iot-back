@@ -6,22 +6,20 @@ public class ExamRadioParaCliModel {
     private Date datepr;
     private String result;
     private String espaceQT;
-    private Double aspect;
+    private String aspect;
     private Integer nbQua;
     private String type;
-    private Date dateDiag;
 
     public ExamRadioParaCliModel() {
     }
 
-    public ExamRadioParaCliModel(Date datepr, String result, String espaceQT, Double aspect, Integer nbQua, String type, Date dateDiag) {
+    public ExamRadioParaCliModel(Date datepr, String result, String espaceQT, String aspect, Integer nbQua, String type) {
         this.datepr = datepr;
         this.result = result;
         this.espaceQT = espaceQT;
         this.aspect = aspect;
         this.nbQua = nbQua;
         this.type = type;
-        this.dateDiag = dateDiag;
     }
 
     public Date getDatepr() {
@@ -48,11 +46,11 @@ public class ExamRadioParaCliModel {
         this.espaceQT = espaceQT;
     }
 
-    public Double getAspect() {
+    public String getAspect() {
         return aspect;
     }
 
-    public void setAspect(Double aspect) {
+    public void setAspect(String aspect) {
         this.aspect = aspect;
     }
 
@@ -72,11 +70,4 @@ public class ExamRadioParaCliModel {
         this.type = type;
     }
 
-    public Date getDateDiag() {
-        return dateDiag;
-    }
-
-    public void setDateDiag(Date dateDiag) {
-        this.dateDiag = dateDiag;
-    }
 }

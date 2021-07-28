@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Exposition {
     //private String nomExpo;
-    private Date diagnosticDate;
     private Date dateEnt;
     private String lieuEnt;
     private String moyensTran;
@@ -34,8 +33,8 @@ public class Exposition {
     public Exposition() {
     }
 
-    public Exposition(Date diagnosticDate, Date dateEnt, String lieuEnt, String moyensTran, String autre, String details, String contact, Integer idTun, Date dateDebutC, Date dateFinC, String nom, String moyenTranQu, Date date, boolean respect, Date dateD, Date dateF, Boolean habite, String villes, String villesPar, Date dateV1, String moyenTranV1, Date dateV2, String moyenTranV2, Date dateDQu, Date dateFDQu) {
-        this.diagnosticDate = diagnosticDate;
+    public Exposition( Date dateEnt, String lieuEnt, String moyensTran, String autre, String details, String contact, Integer idTun, Date dateDebutC, Date dateFinC, String nom, String moyenTranQu, Date date, boolean respect, Date dateD, Date dateF, Boolean habite, String villes, String villesPar, Date dateV1, String moyenTranV1, Date dateV2, String moyenTranV2, Date dateDQu, Date dateFDQu) {
+
         this.dateEnt = dateEnt;
         this.lieuEnt = lieuEnt;
         this.moyensTran = moyensTran;
@@ -71,14 +70,6 @@ public class Exposition {
     }
 
  */
-
-    public Date getDiagnosticDate() {
-        return diagnosticDate;
-    }
-
-    public void setDiagnosticDate(Date diagnosticDate) {
-        this.diagnosticDate = diagnosticDate;
-    }
 
     public Date getDateEnt() {
         return dateEnt;

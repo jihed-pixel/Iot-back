@@ -5,9 +5,9 @@ import java.util.Date;
 public class TdmTho {
     private Date datePr;
     private String result;
-    private Double aspect;
+    private String aspect;
 
-    public TdmTho(Date datePr, String result, Double aspect) {
+    public TdmTho(Date datePr, String result, String aspect) {
         this.datePr = datePr;
         this.result = result;
         this.aspect = aspect;
@@ -32,11 +32,11 @@ public class TdmTho {
         this.result = result;
     }
 
-    public Double getAspect() {
+    public String getAspect() {
         return aspect;
     }
 
-    public void setAspect(Double aspect) {
+    public void setAspect(String aspect) {
         this.aspect = aspect;
     }
 }

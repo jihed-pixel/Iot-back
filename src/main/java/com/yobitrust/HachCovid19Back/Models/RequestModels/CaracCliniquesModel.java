@@ -10,7 +10,6 @@ public class CaracCliniquesModel  {
     private String  autre;
     private Date dateD;
     private Date dateF;
-    private  Date dateDiag;
     private Boolean sym;
     private String typeT;
 
@@ -73,15 +72,7 @@ public class CaracCliniquesModel  {
         this.dateF = dateF;
     }
 
-    public Date getDateDiag() {
-        return dateDiag;
-    }
-
-    public void setDateDiag(Date dateDiag) {
-        this.dateDiag = dateDiag;
-    }
-
-    public CaracCliniquesModel(Double temperature, String type, Integer selle, Integer nbEpisodes, String autre, Date dateD, Date dateF, Date dateDiag,Boolean sym, String typeT) {
+    public CaracCliniquesModel(Double temperature, String type, Integer selle, Integer nbEpisodes, String autre, Date dateD, Date dateF,Boolean sym, String typeT) {
         this.temperature = temperature;
         this.type = type;
         this.selle = selle;
@@ -89,7 +80,6 @@ public class CaracCliniquesModel  {
         this.autre = autre;
         this.dateD = dateD;
         this.dateF = dateF;
-        this.dateDiag = dateDiag;
         this.sym=sym;
         this.typeT=typeT;
     }

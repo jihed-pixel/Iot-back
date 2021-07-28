@@ -3,31 +3,58 @@ package com.yobitrust.HachCovid19Back.Models.RequestModels;
 import java.util.Date;
 
 public class TraitementModel {
-    private Double dosage;//dosage ou debit
+    private Boolean trait;
+    private String pactt;
+    private String type;
+    private String dosage;//dosage ou debit
     private Date dateD;
     private Date dateF;
-    private String trai;
-    private Date dateDiag;
-    private String pactt;
+    private String autre;
+
 
     public TraitementModel() {
     }
 
-    public TraitementModel(Double dosage, Date dateD, Date dateF, String trai, Date dateDiag,String pactt) {
+    public TraitementModel(Boolean trait, String pactt, String type, String dosage, Date dateD, Date dateF, String autre) {
+        this.trait = trait;
+        this.pactt = pactt;
+        this.type = type;
         this.dosage = dosage;
         this.dateD = dateD;
         this.dateF = dateF;
-        this.trai = trai;
-        this.dateDiag = dateDiag;
-        this.pactt=pactt;
+        this.autre = autre;
     }
 
-    public Double getDosage() {
+    public Boolean getTrait() {
+        return trait;
+    }
+
+    public void setTrait(Boolean trait) {
+        this.trait = trait;
+    }
+
+    public String getPactt() {
+        return pactt;
+    }
+
+    public void setPactt(String pactt) {
+        this.pactt = pactt;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDosage() {
         return dosage;
     }
 
-    public void setDosage(Double dossge) {
-        this.dosage = dossge;
+    public void setDosage(String dosage) {
+        this.dosage = dosage;
     }
 
     public Date getDateD() {
@@ -46,27 +73,11 @@ public class TraitementModel {
         this.dateF = dateF;
     }
 
-    public String getTrai() {
-        return trai;
+    public String getAutre() {
+        return autre;
     }
 
-    public void setTrai(String trai) {
-        this.trai = trai;
-    }
-
-    public Date getDateDiag() {
-        return dateDiag;
-    }
-
-    public void setDateDiag(Date dateDiag) {
-        this.dateDiag = dateDiag;
-    }
-
-    public String getPactt() {
-        return pactt;
-    }
-
-    public void setPactt(String pactt) {
-        this.pactt = pactt;
+    public void setAutre(String autre) {
+        this.autre = autre;
     }
 }

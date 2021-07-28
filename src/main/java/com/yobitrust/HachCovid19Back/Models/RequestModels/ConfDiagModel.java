@@ -7,18 +7,10 @@ public class ConfDiagModel {
     private Date datePr;
     private String type;
     private String result;
-    private Date dateDiag;
 
     public ConfDiagModel() {
     }
 
-    public Date getDateDiag() {
-        return dateDiag;
-    }
-
-    public void setDateDiag(Date dateDiag) {
-        this.dateDiag = dateDiag;
-    }
 
     public String getTest() {
         return test;
@@ -52,11 +44,10 @@ public class ConfDiagModel {
         this.result = result;
     }
 
-    public ConfDiagModel(String test, Date datePr, String type, String result,Date dateDiag) {
+    public ConfDiagModel(String test, Date datePr, String type, String result) {
         this.test = test;
         this.datePr = datePr;
         this.type = type;
         this.result = result;
-        this.dateDiag=dateDiag;
     }
 }

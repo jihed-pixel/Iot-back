@@ -1,32 +1,27 @@
 package com.yobitrust.HachCovid19Back.Models.PatientParts.Exam_Bio;
 
+import com.yobitrust.HachCovid19Back.Models.PatientParts.BILAN.PATHS;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class AutreBilan {
-    private Date datePr;
-    private String paths;
+    private List<PATHS> pathss;
 
     public AutreBilan() {
+        this.pathss=new ArrayList<>();
     }
 
-    public AutreBilan(Date datePr, String paths) {
-        this.datePr = datePr;
-        this.paths = paths;
+    public AutreBilan(List<PATHS> pathss) {
+        this.pathss = pathss;
     }
 
-    public Date getDatePr() {
-        return datePr;
+    public List<PATHS> getPathss() {
+        return pathss;
     }
 
-    public void setDatePr(Date datePr) {
-        this.datePr = datePr;
-    }
-
-    public String getPaths() {
-        return paths;
-    }
-
-    public void setPaths(String paths) {
-        this.paths = paths;
+    public void setPathss(List<PATHS> pathss) {
+        this.pathss = pathss;
     }
 }

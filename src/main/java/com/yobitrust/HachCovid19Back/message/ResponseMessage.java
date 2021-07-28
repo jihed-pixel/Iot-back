@@ -1,4 +1,4 @@
-package com.bezkoder.spring.files.upload.message;
+package com.yobitrust.HachCovid19Back.message;
 
 public class ResponseMessage {
   private String message;

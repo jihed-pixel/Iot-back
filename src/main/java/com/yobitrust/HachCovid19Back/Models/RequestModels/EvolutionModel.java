@@ -17,16 +17,17 @@ public class EvolutionModel {
     private String ville;
     private String lieu;
     private Date time;
-    private Double value;
+    private Date value;
+    private Date value1;
+    private Date value2;
     private String type;
-    private Date dateDiag;
     private String category;
 
 
     public EvolutionModel() {
     }
 
-    public EvolutionModel(Date dateD, Date dataF, Integer saps2, Integer apache2, Integer sofa, Date dateS, String typeS, Date dateH, String hopital, String service, String ville, String lieu, Date time, Double value,String type,Date dateDiag,String category) {
+    public EvolutionModel(Date dateD, Date dataF, Integer saps2, Integer apache2, Integer sofa, Date dateS, String typeS, Date dateH, String hopital, String service, String ville, String lieu, Date time, Date value, Date value1, Date value2,String type,String category) {
         this.dateD = dateD;
         this.dateF = dataF;
         this.saps2 = saps2;
@@ -41,8 +42,9 @@ public class EvolutionModel {
         this.lieu = lieu;
         this.time = time;
         this.value = value;
+        this.value1 = value1;
+        this.value2 = value2;
         this.type=type;
-        this.dateDiag=dateDiag;
         this.category=category;
     }
 
@@ -150,12 +152,28 @@ public class EvolutionModel {
         this.time = time;
     }
 
-    public Double getValue() {
+    public Date getValue() {
         return value;
     }
 
-    public void setValue(Double value) {
+    public void setValue(Date value) {
         this.value = value;
+    }
+
+    public Date getValue1() {
+        return value1;
+    }
+
+    public void setValue1(Date value1) {
+        this.value1 = value1;
+    }
+
+    public Date getValue2() {
+        return value2;
+    }
+
+    public void setValue2(Date value2) {
+        this.value2 = value2;
     }
 
     public String getType() {
@@ -164,14 +182,6 @@ public class EvolutionModel {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public Date getDateDiag() {
-        return dateDiag;
-    }
-
-    public void setDateDiag(Date dateDiag) {
-        this.dateDiag = dateDiag;
     }
 
     public String getCategory() {

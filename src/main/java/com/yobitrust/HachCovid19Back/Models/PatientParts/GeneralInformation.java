@@ -1,14 +1,15 @@
 package com.yobitrust.HachCovid19Back.Models.PatientParts;
 import java.util.Date;
 public class GeneralInformation {
+    private String identifiant;
     private String nom;
     private String prenom;
     private String sexe;
     private Date birthDate;
     private String nationnalite;
     private String adresse;
-    private int telPort;
-    private int telDomicile;
+    private String telPort;
+    private String telDomicile;
     private String profession;
     private String niveauEtude;
     private Boolean vitSeul;
@@ -22,8 +23,9 @@ public class GeneralInformation {
     }
 
 
-    public GeneralInformation(String mariee,String nom, String prenom, String sexe, Date birthDate, String nationnalite, String adresse, int telPort, int telDomicile, String profession, String niveauEtude, Boolean vitSeul, Integer individu, Integer enfant, Integer chambres) {
+    public GeneralInformation(String mariee,String identifiant,String nom, String prenom, String sexe, Date birthDate, String nationnalite, String adresse, String telPort, String telDomicile, String profession, String niveauEtude, Boolean vitSeul, Integer individu, Integer enfant, Integer chambres) {
         this.mariee=mariee;
+        this.identifiant = identifiant;
         this.nom = nom;
         this.prenom = prenom;
         this.sexe = sexe;
@@ -47,6 +49,14 @@ public class GeneralInformation {
 
     public void setMariee(String mariee) {
         this.mariee = mariee;
+    }
+
+    public String getIdentifiant() {
+        return identifiant;
+    }
+
+    public void setIdentifiant(String identifiant) {
+        this.identifiant = identifiant;
     }
 
     public String getNom() {
@@ -97,19 +107,19 @@ public class GeneralInformation {
         this.adresse = adresse;
     }
 
-    public int getTelPort() {
+    public String getTelPort() {
         return telPort;
     }
 
-    public void setTelPort(int telPort) {
+    public void setTelPort(String telPort) {
         this.telPort = telPort;
     }
 
-    public int getTelDomicile() {
+    public String getTelDomicile() {
         return telDomicile;
     }
 
-    public void setTelDomicile(int telDomicile) {
+    public void setTelDomicile(String telDomicile) {
         this.telDomicile = telDomicile;
     }
 

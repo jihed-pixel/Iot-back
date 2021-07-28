@@ -5,15 +5,16 @@ import com.yobitrust.HachCovid19Back.Models.PatientParts.ConfDiag;
 import java.util.Date;
 
 public class Serologie  extends ConfDiag {
-    private Date datePr;
+    private String test;
+    private Date   datePr;
     private String result;
 
-    public Serologie() {
-    }
 
-    public Serologie(Date datePr, String result) {
+
+    public Serologie(Date datePr, String result,String test) {
         this.datePr = datePr;
         this.result = result;
+        this.test = test;
     }
 
     public Date getDatePr() {
@@ -30,5 +31,13 @@ public class Serologie  extends ConfDiag {
 
     public void setResult(String result) {
         this.result = result;
+    }
+
+    public String getTest() {
+        return test;
+    }
+
+    public void setTest(String test) {
+        this.test = test;
     }
 }

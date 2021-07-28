@@ -1,13 +1,21 @@
 package com.yobitrust.HachCovid19Back.Controllers;
+import com.sun.jdi.VoidType;
 import com.yobitrust.HachCovid19Back.Models.Patient;
 import com.yobitrust.HachCovid19Back.Models.PatientParts.*;
 import com.yobitrust.HachCovid19Back.Models.PatientParts.AntecedentsMedicaux.*;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.BILAN.*;
 import com.yobitrust.HachCovid19Back.Models.PatientParts.CaracteristiquesCliniques.*;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.CaracteristiquesCliniques.Autre;
 import com.yobitrust.HachCovid19Back.Models.PatientParts.ExamRadioParaCli.ECG;
 import com.yobitrust.HachCovid19Back.Models.PatientParts.ExamRadioParaCli.TdmTho;
 import com.yobitrust.HachCovid19Back.Models.PatientParts.ExamRadioParaCli.Thorax;
 import com.yobitrust.HachCovid19Back.Models.PatientParts.Exam_Bio.*;
 import com.yobitrust.HachCovid19Back.Models.PatientParts.ExpoRisque.*;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.IONOGRA.NAK1;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.IONOGRA.NAKUR;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.IONOGRA.NAKUR1;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.IONOGRA.NAk;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.NFS.*;
 import com.yobitrust.HachCovid19Back.Models.PatientParts.admission.AdmHHop;
 import com.yobitrust.HachCovid19Back.Models.PatientParts.admission.AdmHop;
 import com.yobitrust.HachCovid19Back.Models.PatientParts.confDiags.Pcr;
@@ -15,8 +23,8 @@ import com.yobitrust.HachCovid19Back.Models.PatientParts.confDiags.RapideAc;
 import com.yobitrust.HachCovid19Back.Models.PatientParts.confDiags.RapideAg;
 import com.yobitrust.HachCovid19Back.Models.PatientParts.confDiags.Serologie;
 import com.yobitrust.HachCovid19Back.Models.PatientParts.evaluation.*;
-import com.yobitrust.HachCovid19Back.Models.PatientParts.traitement.Dosage;
-import com.yobitrust.HachCovid19Back.Models.PatientParts.traitement.TraitementPart;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.gdsa.*;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.traitement.*;
 import com.yobitrust.HachCovid19Back.Models.RequestModels.*;
 import com.yobitrust.HachCovid19Back.Repositories.PatientRepository;
 import org.modelmapper.ModelMapper;
@@ -32,28 +40,13 @@ import java.util.*;
 
 @RestController
 public class PatientController {
+
     @Autowired
     private PatientRepository patientRepository;
 
-    public Integer findDiagnosticByDate(List<Diagnostic> diagnostics, Date date) {
-        for (Integer i =0;i<diagnostics.size();i++){
-            Date date1=diagnostics.get(i).getDateDiag();
-            //System.out.println(date);
-            //System.out.println(date1);
-            if(date1.compareTo(date)==0)
-                return i;
-        }
-        return  -1;
-    }
-    public Integer findTraitementByDate(List<Dosage>dosages ,Date date){
-        for(Integer i =0;i<dosages.size();i++){
-            Date date1 =dosages.get(i).getDateD();
-            if(date1.compareTo(date)==0)
-                return  i ;
-        }
-        return -1;
-    }
 
+
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
     @PostMapping("/addPatient")
     public ResponseEntity addPatient(@RequestBody AddPatient model) {
         Patient patient = patientRepository.findByCinAndMatricule(model.getCin(), model.getMatricule());
@@ -68,28 +61,30 @@ public class PatientController {
         patientRepository.save(newPatient);
         return ResponseEntity.ok("Patient added successfuly");
     }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
     @GetMapping("/getAllPatients")
     public ResponseEntity getAllPatients(){
         List<Patient> patients= patientRepository.findAll();
         return ResponseEntity.ok(patients);
     }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
     @GetMapping("/search/{cin}")
     public ResponseEntity searchPatient(@PathVariable Integer cin){
         Patient patient=patientRepository.findByCin(cin);
         if(patient==null) return ResponseEntity.ok("No patient having \""+cin+"\"as cin ");
         return ResponseEntity.ok(patient);
-
     }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
     @PostMapping("/add-habitudes-de-vie/{cin}")
     public ResponseEntity addHabitudesDeVie(@RequestBody HabitudesDeVie habitudesDeVie,@PathVariable Integer cin){
         Patient patient=patientRepository.findByCin(cin);
         if(patient==null)
             return ResponseEntity.ok("Patient not found");
-
         else patient.setHabitudesDeVie(habitudesDeVie);
         patientRepository.save(patient);
         return  ResponseEntity.ok(patient);
     }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
     @PostMapping("/add-infos-generales/{cin}")
     public ResponseEntity addInfosGenerales(@RequestBody GeneralInformation generalInformation ,@PathVariable Integer cin){
         Patient patient =patientRepository.findByCin(cin);
@@ -99,6 +94,7 @@ public class PatientController {
         patientRepository.save(patient);
         return ResponseEntity.ok(patient);
     }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
     @PostMapping("/add-antecedents-medicaux/{cin}")
     public ResponseEntity addAntecedentsMedicaux(@RequestBody AntecedentMedical antecedentMedical,@PathVariable Integer cin) {
         Patient patient =patientRepository.findByCin(cin);
@@ -193,7 +189,7 @@ public class PatientController {
         return ResponseEntity.ok(patient);
 
     }
-
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
     @GetMapping("/get-all-antecedents-medicaux/{cin}")
     public  ResponseEntity getAllAntecedentsMedicaux(@PathVariable Integer cin){
 
@@ -203,6 +199,7 @@ public class PatientController {
         return  ResponseEntity.ok(antecedents);
 
     }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
     @PostMapping("/remove-antecedent-medical/{cin}")
     public ResponseEntity deleteAntecedentMedical(@PathVariable Integer cin , @RequestBody RemoveAntecedent antecedent){
         Patient patient = patientRepository.findByCin(cin);
@@ -214,44 +211,162 @@ public class PatientController {
         return ResponseEntity.ok(patient.getAntecedentMedicaux().keySet());
 
     }
-
-    @PostMapping("/add-diagnostic/{cin}")
-    public ResponseEntity ajouterDiagnostic(@PathVariable Integer cin , @RequestBody Exposition exposition)  {
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/remove-p-info-generales/{cin}")
+    public ResponseEntity deletePatientS(@PathVariable Integer cin ){
         Patient patient = patientRepository.findByCin(cin);
-        if (patient == null){
-           return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
-        }
-
-        if(findDiagnosticByDate(patient.getDiagnostics(),exposition.getDate())==-1){
-            Diagnostic diagnostic= new Diagnostic();
-            diagnostic.setDateDiag(exposition.getDate());
-             patient.getDiagnostics().add(diagnostic);
-             patientRepository.save(patient);
-            return ResponseEntity.ok(diagnostic);}
-        return ResponseEntity.ok("You have already added a diagnostic in the same day");
+        if(patient==null) return ResponseEntity.ok("No patient having \""+cin+"\"as cin ");
+        GeneralInformation generalInformations =null;
+        patient.setGeneralInformation(generalInformations);
+        patientRepository.save(patient);
+        return ResponseEntity.ok(patient);
     }
-    @PostMapping("search-diagnostic/{cin}")
-    public ResponseEntity searchDiagnostic(@PathVariable Integer cin, @RequestBody Exposition exposition){
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/remove-p-antecedent-medical/{cin}")
+    public ResponseEntity deletePatient(@PathVariable Integer cin ){
         Patient patient = patientRepository.findByCin(cin);
-        if (patient == null){
-            return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
-        }
-        Integer diagnostic = findDiagnosticByDate(patient.getDiagnostics(),exposition.getDate());
-        if(diagnostic ==-1){
-            return ResponseEntity.ok("No diagnostoc added on "+exposition.getDate().toString());
-        }
-        return ResponseEntity.ok(patient.getDiagnostics().get(diagnostic));
+        if(patient==null) return ResponseEntity.ok("No patient having \""+cin+"\"as cin ");
+        HashMap<String, AntecedentMedicaux> antecedents =null;
+        patient.setAntecedentMedicaux(antecedents);
+        patientRepository.save(patient);
+        return ResponseEntity.ok(patient);
     }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/remove-p-habitudes-de-vie/{cin}")
+    public ResponseEntity deletePatientsss(@PathVariable Integer cin ){
+        Patient patient = patientRepository.findByCin(cin);
+        if(patient==null) return ResponseEntity.ok("No patient having \""+cin+"\"as cin ");
+        List<ConfDiag> confDiag =null;
+        patient.setConfDiags(confDiag);
+        patientRepository.save(patient);
+        return ResponseEntity.ok(patient);
+    }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/remove-p-Conf-Diags/{cin}")
+    public ResponseEntity deletePatientConfDiags(@PathVariable Integer cin ){
+        Patient patient = patientRepository.findByCin(cin);
+        if(patient==null) return ResponseEntity.ok("No patient having \""+cin+"\"as cin ");
+        List<ConfDiag> confDiags =null;
+        patient.setConfDiags(confDiags);
+        patientRepository.save(patient);
+        return ResponseEntity.ok(patient);
+    }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/remove-p-Admissions/{cin}")
+    public ResponseEntity deletePatientAdmissions(@PathVariable Integer cin ){
+        Patient patient = patientRepository.findByCin(cin);
+        if(patient==null) return ResponseEntity.ok("No patient having \""+cin+"\"as cin ");
+        List<Admission> admissions =null;
+        patient.setAdmissions(admissions);
+        patientRepository.save(patient);
+        return ResponseEntity.ok(patient);
+    }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/remove-p-ExpoRisque/{cin}")
+    public ResponseEntity deletePatientExpoRisque(@PathVariable Integer cin ){
+        Patient patient = patientRepository.findByCin(cin);
+        if(patient==null) return ResponseEntity.ok("No patient having \""+cin+"\"as cin ");
+        ExpoRisque expoRisque =null;
+        patient.setExpoRisque(expoRisque);
+        patientRepository.save(patient);
+        return ResponseEntity.ok(patient);
+    }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/remove-p-ExamBio/{cin}")
+    public ResponseEntity deletePatientExamBios(@PathVariable Integer cin ){
+        Patient patient = patientRepository.findByCin(cin);
+        if(patient==null) return ResponseEntity.ok("No patient having \""+cin+"\"as cin ");
+        ExamBio examBio =null;
+        patient.setExamBio(examBio);
+        patientRepository.save(patient);
+        return ResponseEntity.ok(patient);
+    }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/remove-p-CaracCliniques/{cin}")
+    public ResponseEntity deletePatientCaracCliniques(@PathVariable Integer cin ){
+        Patient patient = patientRepository.findByCin(cin);
+        if(patient==null) return ResponseEntity.ok("No patient having \""+cin+"\"as cin ");
+        CaracCliniques caracCliniques =null;
+        patient.setCaracCliniques(caracCliniques);
+        patientRepository.save(patient);
+        return ResponseEntity.ok(patient);
+    }
+
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/remove-p-ExamenCli/{cin}")
+    public ResponseEntity deletePatientExamenCli(@PathVariable Integer cin ){
+        Patient patient = patientRepository.findByCin(cin);
+        if(patient==null) return ResponseEntity.ok("No patient having \""+cin+"\"as cin ");
+        ExamenCli examenCli =null;
+        patient.setExamenCli(examenCli);
+        patientRepository.save(patient);
+        return ResponseEntity.ok(patient);
+    }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/remove-p-ExamRadio_ParaCli/{cin}")
+    public ResponseEntity deletePatientExamRadio_ParaCli(@PathVariable Integer cin ){
+        Patient patient = patientRepository.findByCin(cin);
+        if(patient==null) return ResponseEntity.ok("No patient having \""+cin+"\"as cin ");
+        ExamRadio_ParaCli examRadio_ParaCli =null;
+        patient.setExamRadio_paraCli(examRadio_ParaCli);
+        patientRepository.save(patient);
+        return ResponseEntity.ok(patient);
+    }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/remove-p-EvaluationFinale/{cin}")
+    public ResponseEntity deletePatientEvaluationFinale(@PathVariable Integer cin ){
+        Patient patient = patientRepository.findByCin(cin);
+        if(patient==null) return ResponseEntity.ok("No patient having \""+cin+"\"as cin ");
+        EvaluationFinale evaluationFinale =null;
+        patient.setEvaluationFinale(evaluationFinale);
+        patientRepository.save(patient);
+        return ResponseEntity.ok(patient);
+    }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/remove-p-Traitement/{cin}")
+    public ResponseEntity deletePatientTraitement(@PathVariable Integer cin ){
+        Patient patient = patientRepository.findByCin(cin);
+        if(patient==null) return ResponseEntity.ok("No patient having \""+cin+"\"as cin ");
+        Traitement traitement =null;
+        patient.setTraitement(traitement);
+        patientRepository.save(patient);
+        return ResponseEntity.ok(patient);
+    }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/remove-p-EvoluationQuo/{cin}")
+    public ResponseEntity deletePatientEvoluationQuo(@PathVariable Integer cin ){
+        Patient patient = patientRepository.findByCin(cin);
+        if(patient==null) return ResponseEntity.ok("No patient having \""+cin+"\"as cin ");
+        EvoluationQuo evoluationQuo =null;
+        patient.setEvolution(evoluationQuo);
+        patientRepository.save(patient);
+        return ResponseEntity.ok(patient);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
     @PostMapping("/add-exposition/{cin}")
     public ResponseEntity addExposition(@PathVariable Integer cin , @RequestBody Exposition exposition){
         Patient patient = patientRepository.findByCin(cin);
         if (patient == null){
             return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
         }
-        Integer index = findDiagnosticByDate(patient.getDiagnostics(),exposition.getDiagnosticDate());
-        if(index ==-1){
-            return ResponseEntity.ok("No diagnostoc added on "+exposition.getDate().toString());
-        }
+
         ModelMapper mapper= new ModelMapper();
         Arrivee arrivee = mapper.map(exposition,Arrivee.class);
         Parcours parcours =mapper.map(exposition,Parcours.class);
@@ -260,23 +375,13 @@ public class PatientController {
         AutreCritere autreCritere=mapper.map(exposition,AutreCritere.class);
         Quarantine quarantine=mapper.map(exposition,Quarantine.class);
         ExpoRisque  expoRisque=new ExpoRisque(zoneRisque,arrivee,parcours,contactEtroit,autreCritere,quarantine);
-        Diagnostic diagnostic= patient.getDiagnostics().get(index);
-        diagnostic.setExpoRisque(expoRisque);
-        patient.getDiagnostics().set(index,diagnostic);
+        patient.setExpoRisque(expoRisque);
         patientRepository.save(patient);
-        return ResponseEntity.ok(patient.getDiagnostics().get(index));
+        return ResponseEntity.ok(patient);
 
     }
 
-    @GetMapping("/get-all-diagnostics/{cin}")
-    public ResponseEntity getAllDiagnostics(@PathVariable Integer cin) {
-        Patient patient = patientRepository.findByCin(cin);
-        if (patient == null){
-            return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
-        }
-        return ResponseEntity.ok(patient.getDiagnostics());
-    }
-
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
     @PostMapping("add-confDiag/{cin}")
     public ResponseEntity addConfDiag(@PathVariable Integer cin, @RequestBody ConfDiagModel confDiagModel){
         Patient patient = patientRepository.findByCin(cin);
@@ -284,30 +389,27 @@ public class PatientController {
         if (patient == null){
             return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
         }
-        Integer index = findDiagnosticByDate(patient.getDiagnostics(),confDiagModel.getDateDiag());
-        if(index ==-1){
-            return ResponseEntity.ok("No diagnostoc added on "+confDiagModel.getDateDiag());
-        }
+
         if(confDiagModel.getTest().equals("Pcr")){
             Pcr pcr=mapper.map(confDiagModel,Pcr.class);
-            patient.getDiagnostics().get(index).getConfDiags().add(pcr);
+            patient.getConfDiags().add(pcr);
         }
         if(confDiagModel.getTest().equals("RapideAc")){
             RapideAc rapideAc=mapper.map(confDiagModel,RapideAc.class);
-            patient.getDiagnostics().get(index).getConfDiags().add(rapideAc);
+            patient.getConfDiags().add(rapideAc);
         }
         if(confDiagModel.getTest().equals("RapideAg")){
             RapideAg rapideAg=mapper.map(confDiagModel,RapideAg.class);
-            patient.getDiagnostics().get(index).getConfDiags().add(rapideAg);
+            patient.getConfDiags().add(rapideAg);
         }
         if(confDiagModel.getTest().equals("Serologie")){
             Serologie serologie =mapper.map(confDiagModel,Serologie.class);
-            patient.getDiagnostics().get(index).getConfDiags().add(serologie);
+            patient.getConfDiags().add(serologie);
         }
         patientRepository.save(patient);
-        return  ResponseEntity.ok(patient.getDiagnostics().get(index));
+        return  ResponseEntity.ok(patient);
     }
-
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
     @PostMapping("/add-admission/{cin}")
     public ResponseEntity addAdmission(@PathVariable Integer cin , @RequestBody AdmissionModel model){
         Patient patient = patientRepository.findByCin(cin);
@@ -315,21 +417,19 @@ public class PatientController {
         if (patient == null){
             return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
         }
-        Integer index = findDiagnosticByDate(patient.getDiagnostics(),model.getDateDiag());
-        if(index ==-1){
-            return ResponseEntity.ok("No diagnostoc added on "+model.getDateDiag());
-        }
+
         if (model.getType().equals("hop")){
             AdmHop admHop= mapper.map(model,AdmHop.class);
-            patient.getDiagnostics().get(index).getAdmissions().add(admHop);
+            patient.getAdmissions().add(admHop);
         }
         if(model.getType().equals("hhop")){
             AdmHHop admHHop=mapper.map(model,AdmHHop.class);
-            patient.getDiagnostics().get(index).getAdmissions().add(admHHop);
+            patient.getAdmissions().add(admHHop);
         }
         patientRepository.save(patient);
-        return  ResponseEntity.ok(patient.getDiagnostics().get(index));
+        return  ResponseEntity.ok(patient);
     }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
     @PostMapping("/add-carac-cliniques/{cin}")
     public ResponseEntity addCaracCliniques(@PathVariable Integer cin , @RequestBody CaracCliniquesModel model){
         Patient patient = patientRepository.findByCin(cin);
@@ -337,218 +437,90 @@ public class PatientController {
         if (patient == null){
             return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
         }
-        Integer index = findDiagnosticByDate(patient.getDiagnostics(),model.getDateDiag());
-        if(index ==-1){
-            return ResponseEntity.ok("No diagnostoc added on "+model.getDateDiag());
-        }
 
         //System.out.println(patient.getDiagnostics().get(index).getCaracCliniques());
 
-        if(patient.getDiagnostics().get(index).getCaracCliniques()==null){
-            patient.getDiagnostics().get(index).setCaracCliniques(new CaracCliniques());
+        if(patient.getCaracCliniques()==null){
+            patient.setCaracCliniques(new CaracCliniques());
         }
-        patient.getDiagnostics().get(index).getCaracCliniques().setSym(model.getSym());
+        patient.getCaracCliniques().setSym(model.getSym());
         if(model.getSym()==false){
             patientRepository.save(patient);
-            return  ResponseEntity.ok(patient.getDiagnostics().get(index));
+            return  ResponseEntity.ok(patient);
         }
         if(model.getType().equals("Fievre")){
             Fievre fievre =mapper.map(model,Fievre.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("Fievre",fievre);
+            patient.getCaracCliniques().getSymptomes().put("Fievre",fievre);
         }
         if(model.getType().equals("Toux")){
             Toux toux=mapper.map(model,Toux.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("Toux",toux);
+            patient.getCaracCliniques().getSymptomes().put("Toux",toux);
         }
         if(model.getType().equals("Cephalees")){
             Cephalees cephalees=mapper.map(model,Cephalees.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("Cephalees",cephalees);
+            patient.getCaracCliniques().getSymptomes().put("Cephalees",cephalees);
         }
         if(model.getType().equals("AshthFat")){
             AshthFat ashthFat=mapper.map(model,AshthFat.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("AshthFat",ashthFat);
+            patient.getCaracCliniques().getSymptomes().put("AshthFat",ashthFat);
         }
         if(model.getType().equals("MyalCourba")){
             MyalCourba myalCourba =mapper.map(model,MyalCourba.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("MyalCourba",myalCourba);
+            patient.getCaracCliniques().getSymptomes().put("MyalCourba",myalCourba);
         }
         if(model.getType().equals("Odynophagie")){
             Odynophagie odynophagie=mapper.map(model,Odynophagie.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("Odynophagie",odynophagie);
+            patient.getCaracCliniques().getSymptomes().put("Odynophagie",odynophagie);
         }
         if(model.getType().equals("RhinoCongNas")){
             RhinoCongNas rhinoCongNas =mapper.map(model,RhinoCongNas.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("RhinoCongNas",rhinoCongNas);
+            patient.getCaracCliniques().getSymptomes().put("RhinoCongNas",rhinoCongNas);
         }
         if(model.getType().equals("Anosmie")){
             Anosmie anosmie=mapper.map(model,Anosmie.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("Anosmie",anosmie);
+            patient.getCaracCliniques().getSymptomes().put("Anosmie",anosmie);
         }
         if(model.getType().equals("Agueusie")){
             Agueusie agueusie=mapper.map(model,Agueusie.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("Agueusie",agueusie);
+            patient.getCaracCliniques().getSymptomes().put("Agueusie",agueusie);
         }
         if(model.getType().equals("Diarrhee")){
             Diarrhee diarrhee= mapper.map(model,Diarrhee.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("Diarrhee",diarrhee);
+            patient.getCaracCliniques().getSymptomes().put("Diarrhee",diarrhee);
         }
         if(model.getType().equals("NauVoumi")){
             NauVoumi nauVoumi=mapper.map(model,NauVoumi.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("NauVoumi",nauVoumi);
+            patient.getCaracCliniques().getSymptomes().put("NauVoumi",nauVoumi);
         }
         if(model.getType().equals("ErruptionCu")){
             ErruptionCu erruptionCu=mapper.map(model,ErruptionCu.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("ErruptionCu",erruptionCu);
+            patient.getCaracCliniques().getSymptomes().put("ErruptionCu",erruptionCu);
         }
         if(model.getType().equals("Engelure")){
             Engelure engelure=mapper.map(model,Engelure.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("Engelure",engelure);
+            patient.getCaracCliniques().getSymptomes().put("Engelure",engelure);
         }
         if(model.getType().equals("DouleurThora")){
             DouleurThora douleurThora=mapper.map(model,DouleurThora.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("DouleurThora",douleurThora);
+            patient.getCaracCliniques().getSymptomes().put("DouleurThora",douleurThora);
         }
         if(model.getType().equals("GeneRespi")){
             GeneRespi geneRespi =mapper.map(model,GeneRespi.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("GeneRespi",geneRespi);
+            patient.getCaracCliniques().getSymptomes().put("GeneRespi",geneRespi);
         }
         if(model.getType().equals("Essouflement")){
             Essouflement essouflement =mapper.map(model,Essouflement.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("Essouflement",essouflement);
+            patient.getCaracCliniques().getSymptomes().put("Essouflement",essouflement);
         }
         if(model.getType().equals("Autre")){
             Autre autre=mapper.map(model,Autre.class);
-            patient.getDiagnostics().get(index).getCaracCliniques().getSymptomes().put("Autre",autre);
+            patient.getCaracCliniques().getSymptomes().put("Autre",autre);
         }
         patientRepository.save(patient);
-        return ResponseEntity.ok(patient.getDiagnostics().get(index));
+        return ResponseEntity.ok(patient);
 
     }
-
-    @PostMapping("/add-examen-cli/{cin}")
-    public ResponseEntity addExamenCli(@PathVariable Integer cin , @RequestBody ExamenCliModel model){
-        Patient patient = patientRepository.findByCin(cin);
-        ModelMapper mapper= new ModelMapper();
-        if (patient == null){
-            return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
-        }
-        Integer index = findDiagnosticByDate(patient.getDiagnostics(),model.getDateDiag());
-        if(index ==-1){
-            return ResponseEntity.ok("No diagnostoc added on "+model.getDateDiag());
-        }
-        ExamenCli examenCli=mapper.map(model,ExamenCli.class);
-        patient.getDiagnostics().get(index).setExamenCli(examenCli);
-        patientRepository.save(patient);
-        return  ResponseEntity.ok(patient.getDiagnostics().get(index));
-
-    }
-
-    @PostMapping("/add-examen-radio-paracli/{cin}")
-    public ResponseEntity addExamenRadioParaCli(@PathVariable Integer cin ,@RequestBody ExamRadioParaCliModel model){
-        Patient patient = patientRepository.findByCin(cin);
-        ModelMapper mapper= new ModelMapper();
-        if (patient == null){
-            return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
-        }
-        Integer index = findDiagnosticByDate(patient.getDiagnostics(),model.getDateDiag());
-        if(index ==-1){
-            return ResponseEntity.ok("No diagnostoc added on "+model.getDateDiag());
-        }
-        if(model.getType().equals("Thorax")){
-            Thorax thorax=mapper.map(model,Thorax.class);
-            //patient.getDiagnostics().get(index).setExamRadio_paraCli(new ExamRadio_ParaCli());
-            patient.getDiagnostics().get(index).getExamRadio_paraCli().getThoraxes().add(thorax);
-        }
-        if(model.getType().equals("TdmTho")){
-            TdmTho tdmTho=mapper.map(model,TdmTho.class);
-            patient.getDiagnostics().get(index).getExamRadio_paraCli().getTdmThos().add(tdmTho);
-        }
-        if(model.getType().equals("ECG")){
-            ECG ecg=mapper.map(model,ECG.class);
-            patient.getDiagnostics().get(index).getExamRadio_paraCli().getEcgs().add(ecg);
-        }
-        patientRepository.save(patient);
-        return ResponseEntity.ok(patient.getDiagnostics().get(index));
-    }
-    @PostMapping("add-evaluation-finale/{cin}")
-    public ResponseEntity addEvaluationFinale(@PathVariable Integer cin, @RequestBody EvaluationModel model){
-        Patient patient = patientRepository.findByCin(cin);
-        ModelMapper mapper= new ModelMapper();
-        if (patient == null){
-            return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
-        }
-        Integer index = findDiagnosticByDate(patient.getDiagnostics(),model.getDateDiag());
-        if(index ==-1){
-            return ResponseEntity.ok("No diagnostoc added on "+model.getDateDiag());
-        }
-        EvaluationFinale evaluation =mapper.map(model,EvaluationFinale.class);
-        patient.getDiagnostics().get(index).setEvaluationFinale(evaluation);
-        patientRepository.save(patient);
-        return ResponseEntity.ok(patient.getDiagnostics().get(index));
-    }
-
-    @PostMapping("/add-examen-bio/{cin}")
-    public ResponseEntity addExamBio(@PathVariable Integer cin , @RequestBody ExamBioModel model){
-        Patient patient = patientRepository.findByCin(cin);
-        ModelMapper mapper= new ModelMapper();
-        if (patient == null){
-            return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
-        }
-        Integer index = findDiagnosticByDate(patient.getDiagnostics(),model.getDateDiag());
-        if(index ==-1){
-            return ResponseEntity.ok("No diagnostoc added on "+model.getDateDiag());
-        }
-        if(model.getType().equals("NFS")){
-            NFS nfs =mapper.map(model,NFS.class);
-            patient.getDiagnostics().get(index).getExamBio().getNfs().add(nfs);
-        }
-        if(model.getType().equals("BilanRenal")){
-            BilanRenal bilanRenal =mapper.map(model,BilanRenal.class);
-            patient.getDiagnostics().get(index).getExamBio().getBilanRenal().add(bilanRenal);
-        }
-        if(model.getType().equals("GDSA")){
-            GDSA gdsa= mapper.map(model,GDSA.class);
-            patient.getDiagnostics().get(index).getExamBio().getGdsas().add(gdsa);
-        }
-        if(model.getType().equals("BilanHepa")){
-            BilanHepa bilanHepa=mapper.map(model,BilanHepa.class);
-            patient.getDiagnostics().get(index).getExamBio().getBilanHepa().add(bilanHepa);
-        }
-        if(model.getType().equals("Ionogra")){
-            Ionogra ionogra=mapper.map(model,Ionogra.class);
-            patient.getDiagnostics().get(index).getExamBio().getIonogras().add(ionogra);
-        }
-        patientRepository.save(patient);
-        return  ResponseEntity.ok(patient.getDiagnostics().get(index));
-    }
-
-    @PostMapping (value = "/add-examen-bio-image/{cin}" )
-    public ResponseEntity addImage(@RequestParam("file")MultipartFile file , @RequestParam("dateDiag")   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)  Date dateDiag, @PathVariable Integer cin,@RequestParam("datePr")  @DateTimeFormat(pattern = "yyyy-mm-dd") Date datePr) throws IOException {
-
-        //System.out.println(dateDiag);
-        Patient patient = patientRepository.findByCin(cin);
-        ModelMapper mapper= new ModelMapper();
-        if (patient == null){
-            return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
-        }
-        Integer index = findDiagnosticByDate(patient.getDiagnostics(),dateDiag);
-        if(index ==-1){
-            return ResponseEntity.ok("No diagnostoc added on "+dateDiag);
-        }
-
-        String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
-        String bilanPath="src/main/resources/bilans/"+UUID.randomUUID().toString()+'.'+extension;
-        File file1= new File(bilanPath);
-        file1.createNewFile();
-        FileOutputStream fout =new FileOutputStream(file1);
-        fout.write(file.getBytes());
-        fout.close();
-        patient.getDiagnostics().get(index).getExamBio().getAutreBilans().add(new AutreBilan(datePr,bilanPath));
-        patientRepository.save(patient);
-        return ResponseEntity.ok(patient.getDiagnostics().get(index));
-
-         }
-
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
     @PostMapping("/add-traitement/{cin}")
     public ResponseEntity addTraitement(@RequestBody TraitementModel model, @PathVariable Integer cin ){
         Patient patient = patientRepository.findByCin(cin);
@@ -556,68 +528,256 @@ public class PatientController {
         if (patient == null){
             return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
         }
-        Integer index = findDiagnosticByDate(patient.getDiagnostics(),model.getDateDiag());
-        if(index ==-1){
-            return ResponseEntity.ok("No diagnostoc added on "+model.getDateDiag());
+
+
+        if(patient.getCaracCliniques()==null){
+            patient.setCaracCliniques(new CaracCliniques());
+        }
+        patient.getTraitement().setTrait(model.getTrait());
+        if(model.getTrait()==false){
+            patientRepository.save(patient);
+            return  ResponseEntity.ok(patient);
+        }
+        if(model.getType().equals("ADO")){
+            ADO ado =mapper.map(model, ADO.class);
+            patient.getTraitement().getTraitementPart().put("ADO",ado);
+        }
+        if(model.getType().equals("Amoxicilline")){
+            Amoxicilline amoxicilline =mapper.map(model, Amoxicilline.class);
+            patient.getTraitement().getTraitementPart().put("Amoxicilline",amoxicilline);
+        }
+        if(model.getType().equals("ADO")){
+            Amoxicilline amoxicilline =mapper.map(model, Amoxicilline.class);
+            patient.getTraitement().getTraitementPart().put("Amoxicilline",amoxicilline);
+        }
+        if(model.getType().equals("Anti_coagulant")){
+            Anti_coagulant anti_coagulant =mapper.map(model, Anti_coagulant.class);
+            patient.getTraitement().getTraitementPart().put("Anti_coagulant",anti_coagulant);
         }
 
-        Dosage dosage= mapper.map(model,Dosage.class);
-        if(patient.getDiagnostics().get(index).getTraitement().getTraitementPart()==null){
-           TraitementPart traitementPart= new TraitementPart();
-           traitementPart.getDosages().add(dosage);
-           HashMap<String,TraitementPart >test=new HashMap<>();
-           patient.getDiagnostics().get(index).getTraitement().setTraitementPart(test);
-           patient.getDiagnostics().get(index).getTraitement().getTraitementPart().put(model.getTrai(),traitementPart);
-
-
+        if(model.getType().equals("AutreTrait")){
+            AutreTrait autre =mapper.map(model, AutreTrait.class);
+            patient.getTraitement().getTraitementPart().put("AutreTrait",autre);
         }
-        if(patient.getDiagnostics().get(index).getTraitement().getTraitementPart().get(model.getTrai())==null){
-
-
-            List<Dosage> dosages= new ArrayList<>();
-            dosages.add(dosage);
-            TraitementPart traitementPart= new TraitementPart();
-            traitementPart.setDosages(dosages);
-            if(patient.getDiagnostics().get(index).getTraitement() != null )System.out.println(traitementPart.getDosages().size());
-            patient.getDiagnostics().get(index).getTraitement().getTraitementPart().put(model.getTrai(),traitementPart);
-
+        if(model.getType().equals("Azithromycine")){
+            Azithromycine azithromycine =mapper.map(model, Azithromycine.class);
+            patient.getTraitement().getTraitementPart().put("Azithromycine",azithromycine);
         }
-        if(patient.getDiagnostics().get(index).getTraitement().getTraitementPart().get(model.getTrai())!=null){
-            System.out.println(model.getDateD());
-            Integer dateDintex= findTraitementByDate(patient.getDiagnostics().get(index).getTraitement().getTraitementPart().get(model.getTrai()).getDosages(),model.getDateD());
-           if(dateDintex ==-1)
-            patient.getDiagnostics().get(index).getTraitement().getTraitementPart().get(model.getTrai()).getDosages().add(dosage);
-           else patient.getDiagnostics().get(index).getTraitement().getTraitementPart().get(model.getTrai()).getDosages().set(dateDintex,dosage);
-           // System.out.println(dosage.getDateF());
-
+        if(model.getType().equals("Cefotaxime")){
+            Cefotaxime cefotaxime =mapper.map(model, Cefotaxime.class);
+            patient.getTraitement().getTraitementPart().put("Cefotaxime",cefotaxime);
+        }
+        if(model.getType().equals("Ceftriaxone")){
+            Ceftriaxone ceftriaxone =mapper.map(model, Ceftriaxone.class);
+            patient.getTraitement().getTraitementPart().put("Ceftriaxone",ceftriaxone);
+        }
+        if(model.getType().equals("Chloroquine_phosphate")){
+            Chloroquine_phosphate chloroquine_phosphate =mapper.map(model, Chloroquine_phosphate.class);
+            patient.getTraitement().getTraitementPart().put("Chloroquine_phosphate",chloroquine_phosphate);
+        }
+        if(model.getType().equals("CPAP")){
+            CPAP cpap =mapper.map(model, CPAP.class);
+            patient.getTraitement().getTraitementPart().put("CPAP",cpap);
+        }
+        if(model.getType().equals("H2O")){
+            H2O h2o =mapper.map(model, H2O.class);
+            patient.getTraitement().getTraitementPart().put("H2O",h2o);
+        }
+        if(model.getType().equals("HFNC")){
+            HFNC hfnc =mapper.map(model, HFNC.class);
+            patient.getTraitement().getTraitementPart().put("HFNC",hfnc);
+        }
+        if(model.getType().equals("Hydroxy_Chloroquine")){
+            Hydroxy_Chloroquine hydroxy_Chloroquine =mapper.map(model, Hydroxy_Chloroquine.class);
+            patient.getTraitement().getTraitementPart().put("Hydroxy_Chloroquine",hydroxy_Chloroquine);
+        }
+        if(model.getType().equals("Insulinotherapie")){
+            Insulinotherapie insulinotherapie =mapper.map(model, Insulinotherapie.class);
+            patient.getTraitement().getTraitementPart().put("Insulinotherapie",insulinotherapie);
+        }
+        if(model.getType().equals("Lopinavir_ritonavir")){
+            Lopinavir_ritonavir lopinavir_ritonavir =mapper.map(model, Lopinavir_ritonavir.class);
+            patient.getTraitement().getTraitementPart().put("Lopinavir_ritonavir",lopinavir_ritonavir);
+        }
+        if(model.getType().equals("Nebulisation_bronchodilatateurs")){
+            Nebulisation_bronchodilatateurs nebulisation_bronchodilatateurs =mapper.map(model, Nebulisation_bronchodilatateurs.class);
+            patient.getTraitement().getTraitementPart().put("Nebulisation_bronchodilatateurs",nebulisation_bronchodilatateurs);
+        }
+        if(model.getType().equals("Nebulisation_corticoides")){
+            Nebulisation_corticoides nebulisation_corticoides =mapper.map(model, Nebulisation_corticoides.class);
+            patient.getTraitement().getTraitementPart().put("Nebulisation_corticoides",nebulisation_corticoides);
+        }
+        if(model.getType().equals("O2")){
+            O2 o =mapper.map(model, O2.class);
+            patient.getTraitement().getTraitementPart().put("O2",o);
+        }
+        if(model.getType().equals("Paracetamol")){
+            Paracetamol paracetamol =mapper.map(model, Paracetamol.class);
+            patient.getTraitement().getTraitementPart().put("Paracetamol",paracetamol);
+        }
+        if(model.getType().equals("Remdesivir")){
+            Remdesivir remdesivir =mapper.map(model, Remdesivir.class);
+            patient.getTraitement().getTraitementPart().put("Remdesivir",remdesivir);
+        }
+        if(model.getType().equals("VMI")){
+            VMI vmi =mapper.map(model, VMI.class);
+            patient.getTraitement().getTraitementPart().put("VMI",vmi);
+        }
+        if(model.getType().equals("VNI")){
+            VNI vni =mapper.map(model, VNI.class);
+            patient.getTraitement().getTraitementPart().put("VNI",vni);
         }
 
-        if(!model.getPactt().isEmpty())
-            patient.getDiagnostics().get(index).getTraitement().setPactt(model.getPactt());
         patientRepository.save(patient);
-        Integer last = patient.getDiagnostics().get(index).getTraitement().getTraitementPart().get(model.getTrai()).getDosages().size()-1;
-        return  ResponseEntity.ok(patient.getDiagnostics().get(index).getTraitement().getTraitementPart().get(model.getTrai()).getDosages().get(last)) ;
+        return ResponseEntity.ok(patient);
 
     }
-    @PostMapping("/get-traitment/{cin}")
-
-    public ResponseEntity getTraitment(@PathVariable Integer cin, @RequestBody GetTraitmentModel model){
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/add-examen-cli/{cin}")
+    public ResponseEntity addExamenCli(@PathVariable Integer cin , @RequestBody ExamenCliModel model){
         Patient patient = patientRepository.findByCin(cin);
-        //ModelMapper mapper= new ModelMapper();
+        ModelMapper mapper= new ModelMapper();
         if (patient == null){
             return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
         }
-        Integer index = findDiagnosticByDate(patient.getDiagnostics(),model.getDateDiag());
-        if(index ==-1){
-            return ResponseEntity.ok("No diagnostoc added on "+model.getDateDiag());
-        }
-        if(patient.getDiagnostics().get(index).getTraitement().getTraitementPart().get(model.getTrai())!=null){
-            Integer last = patient.getDiagnostics().get(index).getTraitement().getTraitementPart().get(model.getTrai()).getDosages().size()-1;
-            return  ResponseEntity.ok(patient.getDiagnostics().get(index).getTraitement().getTraitementPart().get(model.getTrai()).getDosages().get(last)) ;
-        }
-        else return ResponseEntity.ok("Aucun taitment");
+        ExamenCli examenCli=mapper.map(model,ExamenCli.class);
+        patient.setExamenCli(examenCli);
+        patientRepository.save(patient);
+        return  ResponseEntity.ok(patient);
 
     }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/add-examen-radio-paracli/{cin}")
+    public ResponseEntity addExamenRadioParaCli(@PathVariable Integer cin ,@RequestBody ExamRadioParaCliModel model){
+        Patient patient = patientRepository.findByCin(cin);
+        ModelMapper mapper= new ModelMapper();
+        if (patient == null){
+            return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
+        }
+        if(model.getType().equals("Thorax")){
+            Thorax thorax=mapper.map(model,Thorax.class);
+            //patient.getDiagnostics().get(index).setExamRadio_paraCli(new ExamRadio_ParaCli());
+            patient.getExamRadio_paraCli().getThoraxes().add(thorax);
+        }
+        if(model.getType().equals("TdmTho")){
+            TdmTho tdmTho=mapper.map(model,TdmTho.class);
+            patient.getExamRadio_paraCli().getTdmThos().add(tdmTho);
+        }
+        if(model.getType().equals("ECG")){
+            ECG ecg=mapper.map(model,ECG.class);
+            patient.getExamRadio_paraCli().getEcgs().add(ecg);
+        }
+        patientRepository.save(patient);
+        return ResponseEntity.ok(patient);
+    }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("add-evaluation-finale/{cin}")
+    public ResponseEntity addEvaluationFinale(@PathVariable Integer cin, @RequestBody EvaluationModel model){
+        Patient patient = patientRepository.findByCin(cin);
+        ModelMapper mapper= new ModelMapper();
+        if (patient == null){
+            return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
+        }
+        EvaluationFinale evaluation =mapper.map(model,EvaluationFinale.class);
+        patient.setEvaluationFinale(evaluation);
+        patientRepository.save(patient);
+        return ResponseEntity.ok(patient);
+    }
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
+    @PostMapping("/add-examen-bio/{cin}")
+    public ResponseEntity addExamBio(@PathVariable Integer cin , @RequestBody ExamBioModel model  ){
+        Patient patient = patientRepository.findByCin(cin);
+        ModelMapper mapper= new ModelMapper();
+        if (patient == null){
+            return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
+        }
+        if(model.getType().equals("NFS")){
+            LYM lym =mapper.map(model, LYM.class);
+            patient.getExamBio().getNfs().getLyms().add(lym);
+            GB gb =mapper.map(model, GB.class);
+            patient.getExamBio().getNfs().getGbs().add(gb);
+            HB hb =mapper.map(model, HB.class);
+            patient.getExamBio().getNfs().getHbs().add(hb);
+            HT ht =mapper.map(model, HT.class);
+            patient.getExamBio().getNfs().getHts().add(ht);
+            PLA pla =mapper.map(model, PLA.class);
+            patient.getExamBio().getNfs().getPlas().add(pla);
+        }
+        if(model.getType().equals("Ionogra")){
+            NAk nak =mapper.map(model, NAk.class);
+            patient.getExamBio().getIonogras().getNaks().add(nak);
+            NAK1 nak1 =mapper.map(model, NAK1.class);
+            patient.getExamBio().getIonogras().getNak1s().add(nak1);
+            NAKUR nakur =mapper.map(model, NAKUR.class);
+            patient.getExamBio().getIonogras().getNakUrs().add(nakur);
+            NAKUR1 nakur1 =mapper.map(model, NAKUR1.class);
+            patient.getExamBio().getIonogras().getNakUr1s().add(nakur1);
+        }
+        if(model.getType().equals("GDSA")){
+            PH ph =mapper.map(model, PH.class);
+            patient.getExamBio().getGdsas().getPhs().add(ph);
+            PAO2 pao2 =mapper.map(model, PAO2.class);
+            patient.getExamBio().getGdsas().getPao2s().add(pao2);
+            PACO2 paco2 =mapper.map(model, PACO2.class);
+            patient.getExamBio().getGdsas().getPaco2s().add(paco2);
+            HCO3 hco3 =mapper.map(model, HCO3.class);
+            patient.getExamBio().getGdsas().getHco3s().add(hco3);
+            SAO2 sao2 =mapper.map(model, SAO2.class);
+            patient.getExamBio().getGdsas().getSao2s().add(sao2);
+        }
+        if(model.getType().equals("BilanRenal")){
+            CREAT creat =mapper.map(model, CREAT.class);
+            patient.getExamBio().getBilanRenal().getCreats().add(creat);
+            CLAIRCREAT claircreat =mapper.map(model, CLAIRCREAT.class);
+            patient.getExamBio().getBilanRenal().getClairCreats().add(claircreat);
+            UREE uree =mapper.map(model, UREE.class);
+            patient.getExamBio().getBilanRenal().getUrees().add(uree);
+        }
+        if(model.getType().equals("BilanHepa")){
+            BILIRU biliru =mapper.map(model, BILIRU.class);
+            patient.getExamBio().getBilanHepa().getBilirus().add(biliru);
+            BILIRU1 biliru1 =mapper.map(model, BILIRU1.class);
+            patient.getExamBio().getBilanHepa().getBiliru1s().add(biliru1);
+            ALAT alat =mapper.map(model, ALAT.class);
+            patient.getExamBio().getBilanHepa().getAlats().add(alat);
+            ASAT asat =mapper.map(model, ASAT.class);
+            patient.getExamBio().getBilanHepa().getAsats().add(asat);
+            TP tp =mapper.map(model, TP.class);
+            patient.getExamBio().getBilanHepa().getTps().add(tp);
+            FACTEURV facteurv =mapper.map(model, FACTEURV.class);
+            patient.getExamBio().getBilanHepa().getFacteurVs().add(facteurv);
+            FIBRINOGENE fibrinogene =mapper.map(model, FIBRINOGENE.class);
+            patient.getExamBio().getBilanHepa().getFibrinogenes().add(fibrinogene);
+            CPK_MB cpk_mb =mapper.map(model, CPK_MB.class);
+            patient.getExamBio().getBilanHepa().getCpk_mbs().add(cpk_mb);
+            TROPONINE troponine =mapper.map(model, TROPONINE.class);
+            patient.getExamBio().getBilanHepa().getTroponines().add(troponine);
+            PRO_BNP pro_bnp =mapper.map(model, PRO_BNP.class);
+            patient.getExamBio().getBilanHepa().getPro_bnps().add(pro_bnp);
+            ALBUMI albumi =mapper.map(model, ALBUMI.class);
+            patient.getExamBio().getBilanHepa().getAlbumis().add(albumi);
+            D_DIMERE d_dimere =mapper.map(model, D_DIMERE.class);
+            patient.getExamBio().getBilanHepa().getD_dimères().add(d_dimere);
+            LDH ldh =mapper.map(model, LDH.class);
+            patient.getExamBio().getBilanHepa().getLdhs().add(ldh);
+            CRP crp =mapper.map(model, CRP.class);
+            patient.getExamBio().getBilanHepa().getCrps().add(crp);
+            PROCAL procal =mapper.map(model, PROCAL.class);
+            patient.getExamBio().getBilanHepa().getProcals().add(procal);
+            FERRI ferri =mapper.map(model, FERRI.class);
+            patient.getExamBio().getBilanHepa().getFerris().add(ferri);
+        }
+        if(model.getType().equals("AutreBilan")){
+            PATHS paths =mapper.map(model, PATHS.class);
+            patient.getExamBio().getAutreBilans().getPathss().add(paths);
+
+        }
+        patientRepository.save(patient);
+        return  ResponseEntity.ok(patient);
+    }
+
+
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
     @PostMapping ("/add-Evolution/{cin}")
     public ResponseEntity addEvolution(@PathVariable Integer cin, @RequestBody EvolutionModel model){
         Patient patient = patientRepository.findByCin(cin);
@@ -625,62 +785,59 @@ public class PatientController {
         if (patient == null){
             return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
         }
-        Integer index = findDiagnosticByDate(patient.getDiagnostics(),model.getDateDiag());
-        if(index ==-1){
-            return ResponseEntity.ok("No diagnostoc added on "+model.getDateDiag());
-        }
+
         if(model.getCategory().equals("evaluValues")){
             EvaluValue evaluValue= mapper.map(model,EvaluValue.class);
-            if(patient.getDiagnostics().get(index).getEvolution().getEvaluations().get(model.getType())==null)
+            if(patient.getEvolution().getEvaluations().get(model.getType())==null)
             {
                 EvaluValueList list = new EvaluValueList();
                 list.getEvaluValues().add(evaluValue);
-                patient.getDiagnostics().get(index).getEvolution().getEvaluations().put(model.getType(),list);
+                patient.getEvolution().getEvaluations().put(model.getType(),list);
             }
-            else patient.getDiagnostics().get(index).getEvolution().getEvaluations().get(model.getType()).getEvaluValues().add(evaluValue);
+            else patient.getEvolution().getEvaluations().get(model.getType()).getEvaluValues().add(evaluValue);
         }
         if(model.getCategory().equals("USI")){
             USIValue  usiValue = mapper.map(model,USIValue.class);
 
-            if(patient.getDiagnostics().get(index).getEvolution().getUsiValues().get(model.getType()) ==null){
+            if(patient.getEvolution().getUsiValues().get(model.getType()) ==null){
                 //System.out.println("cc value");
                 UsiValueList list = new UsiValueList();
                 list.getUsiValues().add(usiValue);
                 //System.out.println(list.getUsiValues().size());
-                patient.getDiagnostics().get(index).getEvolution().getUsiValues().put(model.getType(), list);
+                patient.getEvolution().getUsiValues().put(model.getType(), list);
             }
-            else patient.getDiagnostics().get(index).getEvolution().getUsiValues().get(model.getType()).getUsiValues().add(usiValue);
+            else patient.getEvolution().getUsiValues().get(model.getType()).getUsiValues().add(usiValue);
         }
         if(model.getCategory().equals("AssResp")){
             AssRespValue value= mapper.map(model,AssRespValue.class);
 
-            if(patient.getDiagnostics().get(index).getEvolution().getAssRespValues().get(model.getType())==null){
+            if(patient.getEvolution().getAssRespValues().get(model.getType())==null){
                 AssRespList list= new AssRespList();
                 list.getAssRespValues().add(value);
-                patient.getDiagnostics().get(index).getEvolution().getAssRespValues().put(model.getType(),list);
+                patient.getEvolution().getAssRespValues().put(model.getType(),list);
 
             }
-            else patient.getDiagnostics().get(index).getEvolution().getAssRespValues().get(model.getType()).getAssRespValues().add(value);
+            else patient.getEvolution().getAssRespValues().get(model.getType()).getAssRespValues().add(value);
         }
         if(model.getCategory().equals("Evolution")){
             Evolution evolution;
             if(model.getType().equals("IHH")){
                 evolution= mapper.map(model,EvolutionIHH.class);
-                patient.getDiagnostics().get(index).getEvolution().getEvolutions().add(evolution);
+                patient.getEvolution().getEvolutions().add(evolution);
 
             }
             if(model.getType().equals("Ho")){
                 evolution=mapper.map(model,EvolutionHo.class);
-                patient.getDiagnostics().get(index).getEvolution().getEvolutions().add(evolution);
+                patient.getEvolution().getEvolutions().add(evolution);
             }
         }
 
         patientRepository.save(patient);
-        return ResponseEntity.ok(patient.getDiagnostics().get(index).getEvolution());
+        return ResponseEntity.ok(patient.getEvolution());
         }
 
 
-
+    @CrossOrigin(origins ="https://sars-cov2-tun.web.app" )
          @PostMapping("/get-evolution/{cin}")
 
          public ResponseEntity getEvolution(@PathVariable Integer cin ,@RequestBody GetEvolutionModel model){
@@ -689,35 +846,31 @@ public class PatientController {
              if (patient == null){
                  return  ResponseEntity.ok("No patient hacing"+cin+" as cin");
              }
-             Integer index = findDiagnosticByDate(patient.getDiagnostics(),model.getDateDiag());
-             if(index ==-1){
-                 return ResponseEntity.ok("No diagnostoc added on "+model.getDateDiag());
-             }
              // if transfert usi
              if(model.getCategory().equals("AssResp") ){
-                 if(patient.getDiagnostics().get(index).getEvolution()==null
-                         || patient.getDiagnostics().get(index).getEvolution().getAssRespValues()==null
-                         || patient.getDiagnostics().get(index).getEvolution().getAssRespValues().get(model.getType()) == null
-                         || patient.getDiagnostics().get(index).getEvolution().getAssRespValues().get(model.getType()).getAssRespValues()==null
-                         || patient.getDiagnostics().get(index).getEvolution().getAssRespValues().get(model.getType()).getAssRespValues().size()==0
+                 if(patient.getEvolution()==null
+                         || patient.getEvolution().getAssRespValues()==null
+                         || patient.getEvolution().getAssRespValues().get(model.getType()) == null
+                         || patient.getEvolution().getAssRespValues().get(model.getType()).getAssRespValues()==null
+                         || patient.getEvolution().getAssRespValues().get(model.getType()).getAssRespValues().size()==0
 
                  )
 
                      return ResponseEntity.ok("Aucun Transfert trouvé !");
-                 else return ResponseEntity.ok(patient.getDiagnostics().get(index).getEvolution().getAssRespValues().get(model.getType()).getAssRespValues().get(patient.getDiagnostics().get(index).getEvolution().getAssRespValues().get(model.getType()).getAssRespValues().size()-1));
+                 else return ResponseEntity.ok(patient.getEvolution().getAssRespValues().get(model.getType()).getAssRespValues().get(patient.getEvolution().getAssRespValues().get(model.getType()).getAssRespValues().size()-1));
              }
              // if transfert assistance respura
              if(model.getCategory().equals("USI") ){
-                 if(patient.getDiagnostics().get(index).getEvolution()==null
-                         || patient.getDiagnostics().get(index).getEvolution().getUsiValues()==null
-                         || patient.getDiagnostics().get(index).getEvolution().getUsiValues().get(model.getType()) == null
-                         || patient.getDiagnostics().get(index).getEvolution().getUsiValues().get(model.getType()).getUsiValues()==null
-                         || patient.getDiagnostics().get(index).getEvolution().getUsiValues().get(model.getType()).getUsiValues().size()==0
+                 if(patient.getEvolution()==null
+                         || patient.getEvolution().getUsiValues()==null
+                         || patient.getEvolution().getUsiValues().get(model.getType()) == null
+                         || patient.getEvolution().getUsiValues().get(model.getType()).getUsiValues()==null
+                         || patient.getEvolution().getUsiValues().get(model.getType()).getUsiValues().size()==0
 
                  )
 
                      return ResponseEntity.ok("Aucun Transfert trouvé !");
-                 else return ResponseEntity.ok(patient.getDiagnostics().get(index).getEvolution().getUsiValues().get(model.getType()).getUsiValues().get(patient.getDiagnostics().get(index).getEvolution().getUsiValues().get(model.getType()).getUsiValues().size()-1));
+                 else return ResponseEntity.ok(patient.getEvolution().getUsiValues().get(model.getType()).getUsiValues().get(patient.getEvolution().getUsiValues().get(model.getType()).getUsiValues().size()-1));
              }
              return ResponseEntity.ok("Aucun !");
 

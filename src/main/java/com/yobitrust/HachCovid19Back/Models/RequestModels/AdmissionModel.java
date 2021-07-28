@@ -9,19 +9,17 @@ public class AdmissionModel {
     private String service;
     private String mode;
     private Date dateEnt;
-    private Date dateDiag;
 
     public AdmissionModel() {
     }
 
-    public AdmissionModel(String type, String lieu, String hopital, String service, String mode, Date dateEnt, Date dateDiag) {
+    public AdmissionModel(String type, String lieu, String hopital, String service, String mode, Date dateEnt) {
         this.type = type;
         this.lieu = lieu;
         this.hopital = hopital;
         this.service = service;
         this.mode = mode;
         this.dateEnt = dateEnt;
-        this.dateDiag = dateDiag;
     }
 
     public String getType() {
@@ -72,11 +70,4 @@ public class AdmissionModel {
         this.dateEnt = dateEnt;
     }
 
-    public Date getDateDiag() {
-        return dateDiag;
-    }
-
-    public void setDateDiag(Date dateDiag) {
-        this.dateDiag = dateDiag;
-    }
 }

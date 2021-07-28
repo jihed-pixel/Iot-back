@@ -2,81 +2,76 @@ package com.yobitrust.HachCovid19Back.Models.PatientParts;
 
 import com.yobitrust.HachCovid19Back.Models.PatientParts.Exam_Bio.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ExamBio {
-    private List<NFS> nfs;
-    private List<BilanRenal> bilanRenal;
-    private List<BilanHepa> bilanHepa;
-    private List<GDSA> gdsas;
-    private List<Ionogra> ionogras;
-    private List<AutreBilan> autreBilans;
-
-
-    public ExamBio(List<NFS> nfs, List<BilanRenal> bilanRenal, List<BilanHepa> bilanHepa, List<GDSA> gdsas, List<Ionogra> ionogras,List<AutreBilan> autreBilans) {
+    private Nfs nfs;
+    private BilanRenal bilanRenal;
+    private BilanHepa bilanHepa;
+    private GDSA gdsas;
+    private Ionogra ionogras;
+    private AutreBilan autreBilans;
+    public ExamBio() {
+        // this.generalInformation=new GeneralInformation();
+        this.nfs= new Nfs();
+        this.bilanRenal=new BilanRenal();
+        this.bilanHepa=new BilanHepa();
+        this.gdsas= new GDSA();
+        this.ionogras=new Ionogra();
+        this.autreBilans=new AutreBilan();
+    }
+    public ExamBio(Nfs nfs, BilanRenal bilanRenal, BilanHepa bilanHepa, GDSA gdsas, Ionogra ionogras, AutreBilan autreBilans) {
         this.nfs = nfs;
         this.bilanRenal = bilanRenal;
         this.bilanHepa = bilanHepa;
         this.gdsas = gdsas;
         this.ionogras = ionogras;
-        this.autreBilans=autreBilans;
-    }
-
-    public ExamBio() {
-        this.nfs=new ArrayList<>();
-        this.bilanHepa=new ArrayList<>();
-        this.gdsas=new ArrayList<>();
-        this.ionogras=new ArrayList<>();
-        this.bilanRenal=new ArrayList<>();
-        this.autreBilans=new ArrayList<>();
-    }
-
-    public List<AutreBilan> getAutreBilans() {
-        return autreBilans;
-    }
-
-    public void setAutreBilans(List<AutreBilan> autreBilans) {
         this.autreBilans = autreBilans;
     }
 
-    public List<NFS> getNfs() {
+    public Nfs getNfs() {
         return nfs;
     }
 
-    public void setNfs(List<NFS> nfs) {
+    public void setNfs(Nfs nfs) {
         this.nfs = nfs;
     }
 
-    public List<BilanRenal> getBilanRenal() {
+    public BilanRenal getBilanRenal() {
         return bilanRenal;
     }
 
-    public void setBilanRenal(List<BilanRenal> bilanRenal) {
+    public void setBilanRenal(BilanRenal bilanRenal) {
         this.bilanRenal = bilanRenal;
     }
 
-    public List<BilanHepa> getBilanHepa() {
+    public BilanHepa getBilanHepa() {
         return bilanHepa;
     }
 
-    public void setBilanHepa(List<BilanHepa> bilanHepa) {
+    public void setBilanHepa(BilanHepa bilanHepa) {
         this.bilanHepa = bilanHepa;
     }
 
-    public List<GDSA> getGdsas() {
+    public GDSA getGdsas() {
         return gdsas;
     }
 
-    public void setGdsas(List<GDSA> gdsas) {
+    public void setGdsas(GDSA gdsas) {
         this.gdsas = gdsas;
     }
 
-    public List<Ionogra> getIonogras() {
+    public Ionogra getIonogras() {
         return ionogras;
     }
 
-    public void setIonogras(List<Ionogra> ionogras) {
+    public void setIonogras(Ionogra ionogras) {
         this.ionogras = ionogras;
+    }
+
+    public AutreBilan getAutreBilans() {
+        return autreBilans;
+    }
+
+    public void setAutreBilans(AutreBilan autreBilans) {
+        this.autreBilans = autreBilans;
     }
 }

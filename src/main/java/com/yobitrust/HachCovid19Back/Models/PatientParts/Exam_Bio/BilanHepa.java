@@ -1,173 +1,195 @@
 package com.yobitrust.HachCovid19Back.Models.PatientParts.Exam_Bio;
 
+import com.yobitrust.HachCovid19Back.Models.PatientParts.BILAN.*;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.NFS.*;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class BilanHepa {
-    private Date datePr;
-    private Double biliru;
-    private Double alat;
-    private Double asat;
-    private Double tp;
-    private Double facteurV;
-    private Double fibrinogene;
-    private Double cpk_mb;
-    private Double troponine ;
-    private Double pro_bnp;
-    private Double albumi;
-    private Double d_dimère;
-    private Double ldh;
-    private Double crp;
-    private Double procal;
-    private Double ferri;
+    private List<BILIRU> bilirus;
+    private List<BILIRU1> biliru1s;
+    private List<ALAT> alats;
+    private List<ASAT> asats;
+    private List<TP> tps;
+    private List<FACTEURV> facteurVs;
+    private List<FIBRINOGENE> fibrinogenes;
+    private List<CPK_MB> cpk_mbs;
+    private List<TROPONINE> troponines ;
+    private List<PRO_BNP> pro_bnps;
+    private List<ALBUMI> albumis;
+    private List<D_DIMERE> d_dimères;
+    private List<LDH> ldhs;
+    private List<CRP> crps;
+    private List<PROCAL> procals;
+    private List<FERRI> ferris;
 
-    public BilanHepa() {
+        public BilanHepa() {
+            this.bilirus=new ArrayList<>();
+            this.biliru1s=new ArrayList<>();
+            this.alats=new ArrayList<>();
+            this.asats=new ArrayList<>();
+            this.tps=new ArrayList<>();
+            this.facteurVs=new ArrayList<>();
+            this.fibrinogenes=new ArrayList<>();
+            this.cpk_mbs=new ArrayList<>();
+            this.troponines=new ArrayList<>();
+            this.pro_bnps=new ArrayList<>();
+            this.albumis=new ArrayList<>();
+            this.d_dimères=new ArrayList<>();
+            this.ldhs=new ArrayList<>();
+            this.crps=new ArrayList<>();
+            this.procals=new ArrayList<>();
+            this.ferris=new ArrayList<>();
+
+        }
+
+    public BilanHepa(List<BILIRU> bilirus, List<BILIRU1> biliru1s, List<ALAT> alats, List<ASAT> asats, List<TP> tps, List<FACTEURV> facteurVs, List<FIBRINOGENE> fibrinogenes, List<CPK_MB> cpk_mbs, List<TROPONINE> troponines, List<PRO_BNP> pro_bnps, List<ALBUMI> albumis, List<D_DIMERE> d_dimères, List<LDH> ldhs, List<CRP> crps, List<PROCAL> procals, List<FERRI> ferris) {
+        this.bilirus = bilirus;
+        this.biliru1s = biliru1s;
+        this.alats = alats;
+        this.asats = asats;
+        this.tps = tps;
+        this.facteurVs = facteurVs;
+        this.fibrinogenes = fibrinogenes;
+        this.cpk_mbs = cpk_mbs;
+        this.troponines = troponines;
+        this.pro_bnps = pro_bnps;
+        this.albumis = albumis;
+        this.d_dimères = d_dimères;
+        this.ldhs = ldhs;
+        this.crps = crps;
+        this.procals = procals;
+        this.ferris = ferris;
     }
 
-    public BilanHepa(Date datePr, Double biliru, Double alat, Double asat, Double tp, Double facteurV, Double fibrinogene, Double cpk_mb, Double troponine, Double pro_bnp, Double albumi, Double d_dimère, Double ldh, Double crp, Double procal, Double ferri) {
-        this.datePr = datePr;
-        this.biliru = biliru;
-        this.alat = alat;
-        this.asat = asat;
-        this.tp = tp;
-        this.facteurV = facteurV;
-        this.fibrinogene = fibrinogene;
-        this.cpk_mb = cpk_mb;
-        this.troponine = troponine;
-        this.pro_bnp = pro_bnp;
-        this.albumi = albumi;
-        this.d_dimère = d_dimère;
-        this.ldh = ldh;
-        this.crp = crp;
-        this.procal = procal;
-        this.ferri = ferri;
+    public List<BILIRU> getBilirus() {
+        return bilirus;
     }
 
-
-    public Date getDatePr() {
-        return datePr;
+    public void setBilirus(List<BILIRU> bilirus) {
+        this.bilirus = bilirus;
     }
 
-    public void setDatePr(Date datePr) {
-        this.datePr = datePr;
+    public List<BILIRU1> getBiliru1s() {
+        return biliru1s;
     }
 
-    public Double getBiliru() {
-        return biliru;
+    public void setBiliru1s(List<BILIRU1> biliru1s) {
+        this.biliru1s = biliru1s;
     }
 
-    public void setBiliru(Double biliru) {
-        this.biliru = biliru;
+    public List<ALAT> getAlats() {
+        return alats;
     }
 
-    public Double getAlat() {
-        return alat;
+    public void setAlats(List<ALAT> alats) {
+        this.alats = alats;
     }
 
-    public void setAlat(Double alat) {
-        this.alat = alat;
+    public List<ASAT> getAsats() {
+        return asats;
     }
 
-    public Double getAsat() {
-        return asat;
+    public void setAsats(List<ASAT> asats) {
+        this.asats = asats;
     }
 
-    public void setAsat(Double asat) {
-        this.asat = asat;
+    public List<TP> getTps() {
+        return tps;
     }
 
-    public Double getTp() {
-        return tp;
+    public void setTps(List<TP> tps) {
+        this.tps = tps;
     }
 
-    public void setTp(Double tp) {
-        this.tp = tp;
+    public List<FACTEURV> getFacteurVs() {
+        return facteurVs;
     }
 
-    public Double getFacteurV() {
-        return facteurV;
+    public void setFacteurVs(List<FACTEURV> facteurVs) {
+        this.facteurVs = facteurVs;
     }
 
-    public void setFacteurV(Double facteurV) {
-        this.facteurV = facteurV;
+    public List<FIBRINOGENE> getFibrinogenes() {
+        return fibrinogenes;
     }
 
-    public Double getFibrinogene() {
-        return fibrinogene;
+    public void setFibrinogenes(List<FIBRINOGENE> fibrinogenes) {
+        this.fibrinogenes = fibrinogenes;
     }
 
-    public void setFibrinogene(Double fibrinogene) {
-        this.fibrinogene = fibrinogene;
+    public List<CPK_MB> getCpk_mbs() {
+        return cpk_mbs;
     }
 
-    public Double getCpk_mb() {
-        return cpk_mb;
+    public void setCpk_mbs(List<CPK_MB> cpk_mbs) {
+        this.cpk_mbs = cpk_mbs;
     }
 
-    public void setCpk_mb(Double cpk_mb) {
-        this.cpk_mb = cpk_mb;
+    public List<TROPONINE> getTroponines() {
+        return troponines;
     }
 
-    public Double getTroponine() {
-        return troponine;
+    public void setTroponines(List<TROPONINE> troponines) {
+        this.troponines = troponines;
     }
 
-    public void setTroponine(Double troponine) {
-        this.troponine = troponine;
+    public List<PRO_BNP> getPro_bnps() {
+        return pro_bnps;
     }
 
-    public Double getPro_bnp() {
-        return pro_bnp;
+    public void setPro_bnps(List<PRO_BNP> pro_bnps) {
+        this.pro_bnps = pro_bnps;
     }
 
-    public void setPro_bnp(Double pro_bnp) {
-        this.pro_bnp = pro_bnp;
+    public List<ALBUMI> getAlbumis() {
+        return albumis;
     }
 
-    public Double getAlbumi() {
-        return albumi;
+    public void setAlbumis(List<ALBUMI> albumis) {
+        this.albumis = albumis;
     }
 
-    public void setAlbumi(Double albumi) {
-        this.albumi = albumi;
+    public List<D_DIMERE> getD_dimères() {
+        return d_dimères;
     }
 
-    public Double getD_dimère() {
-        return d_dimère;
+    public void setD_dimères(List<D_DIMERE> d_dimères) {
+        this.d_dimères = d_dimères;
     }
 
-    public void setD_dimère(Double d_dimère) {
-        this.d_dimère = d_dimère;
+    public List<LDH> getLdhs() {
+        return ldhs;
     }
 
-    public Double getLdh() {
-        return ldh;
+    public void setLdhs(List<LDH> ldhs) {
+        this.ldhs = ldhs;
     }
 
-    public void setLdh(Double ldh) {
-        this.ldh = ldh;
+    public List<CRP> getCrps() {
+        return crps;
     }
 
-    public Double getCrp() {
-        return crp;
+    public void setCrps(List<CRP> crps) {
+        this.crps = crps;
     }
 
-    public void setCrp(Double crp) {
-        this.crp = crp;
+    public List<PROCAL> getProcals() {
+        return procals;
     }
 
-    public Double getProcal() {
-        return procal;
+    public void setProcals(List<PROCAL> procals) {
+        this.procals = procals;
     }
 
-    public void setProcal(Double procal) {
-        this.procal = procal;
+    public List<FERRI> getFerris() {
+        return ferris;
     }
 
-    public Double getFerri() {
-        return ferri;
-    }
-
-    public void setFerri(Double ferri) {
-        this.ferri = ferri;
+    public void setFerris(List<FERRI> ferris) {
+        this.ferris = ferris;
     }
 }
+

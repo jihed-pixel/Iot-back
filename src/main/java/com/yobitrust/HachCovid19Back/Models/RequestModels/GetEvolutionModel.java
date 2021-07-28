@@ -5,15 +5,13 @@ import java.util.Date;
 public class GetEvolutionModel {
     private String category;
     private String type;
-    private Date dateDiag;
 
     public GetEvolutionModel() {
     }
 
-    public GetEvolutionModel(String category, String type, Date dateDiag) {
+    public GetEvolutionModel(String category, String type) {
         this.category = category;
         this.type = type;
-        this.dateDiag = dateDiag;
     }
 
     public String getCategory() {
@@ -32,11 +30,5 @@ public class GetEvolutionModel {
         this.type = type;
     }
 
-    public Date getDateDiag() {
-        return dateDiag;
-    }
 
-    public void setDateDiag(Date dateDiag) {
-        this.dateDiag = dateDiag;
-    }
 }

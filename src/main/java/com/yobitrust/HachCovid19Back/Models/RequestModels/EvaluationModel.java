@@ -8,18 +8,16 @@ public class EvaluationModel {
     private Boolean deces;
     private String causesDir;
     private String causesIndir;
-    private Date dateDiag;
 
     public EvaluationModel() {
     }
 
-    public EvaluationModel(Date dateSor, Date dateDispSig, Boolean deces, String causesDir, String causesIndir, Date dateDiag) {
+    public EvaluationModel(Date dateSor, Date dateDispSig, Boolean deces, String causesDir, String causesIndir) {
         this.dateSor = dateSor;
         this.dateDispSig = dateDispSig;
         this.deces = deces;
         this.causesDir = causesDir;
         this.causesIndir = causesIndir;
-        this.dateDiag = dateDiag;
     }
 
     public Date getDateSor() {
@@ -62,11 +60,4 @@ public class EvaluationModel {
         this.causesIndir = causesIndir;
     }
 
-    public Date getDateDiag() {
-        return dateDiag;
-    }
-
-    public void setDateDiag(Date dateDiag) {
-        this.dateDiag = dateDiag;
-    }
 }

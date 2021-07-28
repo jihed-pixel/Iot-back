@@ -6,14 +6,15 @@ import java.util.Date;
 public class AddPatient {
     private Integer cin;
     private Integer matricule;
+    private String identifiant;
     private String nom;
     private String prenom;
     private String sexe;
     private Date birthDate;
     private String nationnalite;
     private String adresse;
-    private int telPort;
-    private int telDomicile;
+    private String telPort;
+    private String telDomicile;
     private String profession;
     private String niveauEtude;
     private Boolean vitSeul;
@@ -24,9 +25,10 @@ public class AddPatient {
     public AddPatient() {
     }
 
-    public AddPatient(Integer cin, Integer matricule, String nom, String prenom, String sexe, Date birthDate, String nationnalite, String adresse, int telPort, int telDomicile, String profession, String niveauEtude, Boolean vitSeul, Integer individu, Integer enfant, Integer chambres) {
+    public AddPatient(Integer cin, Integer matricule, String identifiant,String nom, String prenom, String sexe, Date birthDate, String nationnalite, String adresse, String telPort, String telDomicile, String profession, String niveauEtude, Boolean vitSeul, Integer individu, Integer enfant, Integer chambres) {
         this.cin = cin;
         this.matricule = matricule;
+        this.identifiant = identifiant;
         this.nom = nom;
         this.prenom = prenom;
         this.sexe = sexe;
@@ -57,6 +59,14 @@ public class AddPatient {
 
     public void setMatricule(Integer matricule) {
         this.matricule = matricule;
+    }
+
+    public String getIdentifiant() {
+        return identifiant;
+    }
+
+    public void setIdentifiant(String identifiant) {
+        this.identifiant = identifiant;
     }
 
     public String getNom() {
@@ -108,20 +118,19 @@ public class AddPatient {
     }
 
 
-
-    public int getTelPort() {
+    public String getTelPort() {
         return telPort;
     }
 
-    public void setTelPort(int telPort) {
+    public void setTelPort(String telPort) {
         this.telPort = telPort;
     }
 
-    public int getTelDomicile() {
+    public String getTelDomicile() {
         return telDomicile;
     }
 
-    public void setTelDomicile(int telDomicile) {
+    public void setTelDomicile(String telDomicile) {
         this.telDomicile = telDomicile;
     }
 

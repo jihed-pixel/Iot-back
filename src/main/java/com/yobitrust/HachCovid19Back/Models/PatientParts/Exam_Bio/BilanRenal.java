@@ -1,52 +1,56 @@
 package com.yobitrust.HachCovid19Back.Models.PatientParts.Exam_Bio;
 
+import com.yobitrust.HachCovid19Back.Models.PatientParts.BILAN.CLAIRCREAT;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.BILAN.CREAT;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.BILAN.UREE;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.NFS.*;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class BilanRenal {
-    private Date datePr;
-    private Double creat;
-    private Double clairCreat;
-    private Double uree;
+    private List<CREAT> creats;
+    private List<CLAIRCREAT> clairCreats;
+    private List<UREE> urees;
 
-    public BilanRenal() {
+
+
+
+        public BilanRenal() {
+            this.creats=new ArrayList<>();
+            this.clairCreats=new ArrayList<>();
+            this.urees=new ArrayList<>();
+        }
+
+    public BilanRenal(List<CREAT> creats, List<CLAIRCREAT> clairCreats, List<UREE> urees) {
+        this.creats = creats;
+        this.clairCreats = clairCreats;
+        this.urees = urees;
     }
 
-    public BilanRenal(Date datePr, Double creat, Double clairCreat, Double uree) {
-        this.datePr = datePr;
-        this.creat = creat;
-        this.clairCreat = clairCreat;
-        this.uree = uree;
+    public List<CREAT> getCreats() {
+        return creats;
     }
 
-    public Date getDatePr() {
-        return datePr;
+    public void setCreats(List<CREAT> creats) {
+        this.creats = creats;
     }
 
-    public void setDatePr(Date datePr) {
-        this.datePr = datePr;
+    public List<CLAIRCREAT> getClairCreats() {
+        return clairCreats;
     }
 
-    public Double getCreat() {
-        return creat;
+    public void setClairCreats(List<CLAIRCREAT> clairCreats) {
+        this.clairCreats = clairCreats;
     }
 
-    public void setCreat(Double creat) {
-        this.creat = creat;
+    public List<UREE> getUrees() {
+        return urees;
     }
 
-    public Double getClairCreat() {
-        return clairCreat;
-    }
-
-    public void setClairCreat(Double clairCreat) {
-        this.clairCreat = clairCreat;
-    }
-
-    public Double getUree() {
-        return uree;
-    }
-
-    public void setUree(Double uree) {
-        this.uree = uree;
+    public void setUrees(List<UREE> urees) {
+        this.urees = urees;
     }
 }
+

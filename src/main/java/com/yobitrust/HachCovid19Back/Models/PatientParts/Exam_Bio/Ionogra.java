@@ -1,42 +1,60 @@
 package com.yobitrust.HachCovid19Back.Models.PatientParts.Exam_Bio;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.IONOGRA.NAK1;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.IONOGRA.NAKUR;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.IONOGRA.NAKUR1;
+import com.yobitrust.HachCovid19Back.Models.PatientParts.IONOGRA.NAk;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Ionogra {
-    private Date datePr;
-    private Double nak;
-    private Double nakUr;
-
-    public Ionogra(Date datePr, Double nak, Double nakUr) {
-        this.datePr = datePr;
-        this.nak = nak;
-        this.nakUr = nakUr;
-    }
-
+    private List<NAk> naks;
+    private List<NAK1> nak1s;
+    private List<NAKUR> nakUrs;
+    private List<NAKUR1> nakUr1s;
     public Ionogra() {
+        this.naks=new ArrayList<>();
+        this.nak1s=new ArrayList<>();
+        this.nakUrs=new ArrayList<>();
+        this.nakUr1s=new ArrayList<>();
     }
 
-    public Date getDatePr() {
-        return datePr;
+    public Ionogra(List<NAk> naks, List<NAK1> nak1s, List<NAKUR> nakUrs, List<NAKUR1> nakUr1s) {
+        this.naks = naks;
+        this.nak1s = nak1s;
+        this.nakUrs = nakUrs;
+        this.nakUr1s = nakUr1s;
     }
 
-    public void setDatePr(Date datePr) {
-        this.datePr = datePr;
+    public List<NAk> getNaks() {
+        return naks;
     }
 
-    public Double getNak() {
-        return nak;
+    public void setNaks(List<NAk> naks) {
+        this.naks = naks;
     }
 
-    public void setNak(Double nak) {
-        this.nak = nak;
+    public List<NAK1> getNak1s() {
+        return nak1s;
     }
 
-    public Double getNakUr() {
-        return nakUr;
+    public void setNak1s(List<NAK1> nak1s) {
+        this.nak1s = nak1s;
     }
 
-    public void setNakUr(Double nakUr) {
-        this.nakUr = nakUr;
+    public List<NAKUR> getNakUrs() {
+        return nakUrs;
+    }
+
+    public void setNakUrs(List<NAKUR> nakUrs) {
+        this.nakUrs = nakUrs;
+    }
+
+    public List<NAKUR1> getNakUr1s() {
+        return nakUr1s;
+    }
+
+    public void setNakUr1s(List<NAKUR1> nakUr1s) {
+        this.nakUr1s = nakUr1s;
     }
 }

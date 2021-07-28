@@ -2,7 +2,8 @@ package com.yobitrust.HachCovid19Back.Models.PatientParts.ExpoRisque;
 
 import java.util.Date;
 
-public class Arrivee {
+public class
+Arrivee {
     private Date dateEnt;
     private String lieuEnt;
     private String moyensTran;

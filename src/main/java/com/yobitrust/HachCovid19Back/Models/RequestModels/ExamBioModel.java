@@ -6,6 +6,7 @@ public class ExamBioModel {
     private Date datePr;
     private String type;
     private Double biliru;
+    private Double biliru1;
     private Double alat;
     private Double asat;
     private Double tp;
@@ -29,13 +30,14 @@ public class ExamBioModel {
     private Double hco3_;
     private Double sao2;
     private Double nak;
+    private Double nak1;
     private Double nakUr;
+    private Double nakUr1;
     private  Double gb;
     private Double lym;
     private Double pla;
     private Double hb;
     private Double ht;
-    private Date dateDiag;
 
     public ExamBioModel() {
     }
@@ -62,6 +64,14 @@ public class ExamBioModel {
 
     public void setBiliru(Double biliru) {
         this.biliru = biliru;
+    }
+
+    public Double getBiliru1() {
+        return biliru1;
+    }
+
+    public void setBiliru1(Double biliru1) {
+        this.biliru1 = biliru1;
     }
 
     public Double getAlat() {
@@ -248,12 +258,28 @@ public class ExamBioModel {
         this.nak = nak;
     }
 
+    public Double getNak1() {
+        return nak1;
+    }
+
+    public void setNak1(Double nak1) {
+        this.nak1 = nak1;
+    }
+
     public Double getNakUr() {
         return nakUr;
     }
 
     public void setNakUr(Double nakUr) {
         this.nakUr = nakUr;
+    }
+
+    public Double getNakUr1() {
+        return nakUr1;
+    }
+
+    public void setNakUr1(Double nakUr1) {
+        this.nakUr1 = nakUr1;
     }
 
     public Double getGb() {
@@ -296,11 +322,5 @@ public class ExamBioModel {
         this.ht = ht;
     }
 
-    public Date getDateDiag() {
-        return dateDiag;
-    }
 
-    public void setDateDiag(Date dateDiag) {
-        this.dateDiag = dateDiag;
-    }
 }
