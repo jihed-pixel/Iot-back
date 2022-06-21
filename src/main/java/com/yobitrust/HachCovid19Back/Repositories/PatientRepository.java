@@ -7,9 +7,7 @@ import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
 
-public interface PatientRepository  extends MongoRepository<Patient,Long> {
-    Patient findByCinAndMatricule(Integer cin, Integer matricule);
-
-    Patient findByCin(Integer cin);
+public interface PatientRepository  extends MongoRepository<Patient,String> {
+    Patient findByDate(String date);
 
 }
