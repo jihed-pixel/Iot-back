@@ -4,21 +4,20 @@ package com.yobitrust.HachCovid19Back.Models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Document
-public class Patient {
+public class Patientiot {
     @Id
     private String date ;
     private List<Float> v ;
     private List<Float> i ;
-    public Patient() {
+    public Patientiot() {
         this.v= new ArrayList<>();
         this.i=new ArrayList<>();
     }
 
-    public Patient(String date, List<Float> v, List<Float> i) {
+    public Patientiot(String date, List<Float> v, List<Float> i) {
         this.date = date;
         this.v = v;
         this.i = i;
